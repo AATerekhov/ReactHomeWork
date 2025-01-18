@@ -10,9 +10,9 @@ function App() {
     <>
       <h1>HomeWork №9</h1>
       <div className="card">
-        <GetCollectionFoUrl url={"http://localhost:32768/WeatherForecast"}/>
-        <GetCollectionFoUrl url={"http://localhost:32768/WeatherForecast/NotFound"}/>   
-        <GetCollectionFoUrl url={"http://localhost:32768/WeatherForecast/BadRequest"}/>       
+        <GetCollectionFoUrl url={"http://localhost:32769/WeatherForecast"}/>
+        <GetCollectionFoUrl url={"http://localhost:32769/WeatherForecast/NotFound"}/>   
+        <GetCollectionFoUrl url={"http://localhost:32769/WeatherForecast/BadRequest"}/>       
         {/* <JsonCollectionTest/> */}
       </div>
     </>

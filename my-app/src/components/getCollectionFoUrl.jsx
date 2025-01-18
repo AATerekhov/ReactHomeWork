@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { GreenCard } from './greenCard';
-import { ErrorCard } from './errorCard';
+import GreenCard from './greenCard';
+import WithErrorCard from './HOC/withError';
 
 export function GetCollectionFoUrl({ url }){
-    const [fucts, setFucts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [fucts, setFucts] = useState(null);
     const [error, setError] = useState(null);
     const [statusCode, setStatusCode] = useState(null);
 
@@ -17,7 +16,7 @@ export function GetCollectionFoUrl({ url }){
             setStatusCode(response.status);            
         } catch (err) {
           if (err.response) {          
-            setError(err.message + `url: ${url}`); 
+            setError(err.message + ` url: ${url}`); 
             setStatusCode(err.response.status);
           } else if (err.request) {          
             setError('No response received from the server.');
@@ -26,32 +25,17 @@ export function GetCollectionFoUrl({ url }){
             setError(err.message);
             setStatusCode(500);
           }
-        } finally{
-            setLoading(false);
         }  
     }
 
-    if (loading) return (
-        <div >
-          <button className="getFucts-button" onClick={GetObjectTest}>
-            Get Card
-          </button>            
-        </div>
-        );
-    if (error !== null) return (   
-        <div >
-          <button className="getFucts-button" onClick={GetObjectTest}>
-            Get Card
-          </button>
-          <ErrorCard message={error} statusCode={statusCode}/>
-        </div>
-    );
+    const CardHOC = WithErrorCard(GreenCard);
+
     return (
         <div >
-          <button className="getFucts-button" onClick={GetObjectTest}>
-            Card
-          </button>
-          <GreenCard data={fucts}/>
-        </div>
+        <button className="getFucts-button" onClick={GetObjectTest}>
+          Load Card
+        </button>
+        <CardHOC  fucts={fucts} error={error} statusCode={statusCode}/>
+      </div>
     );
 };

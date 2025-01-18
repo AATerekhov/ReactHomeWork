@@ -1,8 +1,10 @@
 import React from 'react'
 import './GreenCard.css'
 
-export function GreenCard({ data }){
-
+const  GreenCard = React.memo(({ data }) => {
+  if (data == null){
+    return <></>
+  }
   return (
     <div className="greencard">
       <h2>Данные запроса</h2>
@@ -13,4 +15,6 @@ export function GreenCard({ data }){
       </ul>
     </div>
   );
-};
+});
+
+export default GreenCard
